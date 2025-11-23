@@ -9,6 +9,10 @@ const {
   showDefaultCards,
 } = require("../utils/pokemonDom");
 
+// Mock browser APIs not implemented by jsdom
+beforeAll(() => {
+  window.scrollTo = jest.fn();
+});
 describe("pokemonDom.js", () => {
   let defaultCards, pokemonCard, input;
 

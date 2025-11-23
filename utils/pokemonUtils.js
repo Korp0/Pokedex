@@ -1,8 +1,12 @@
 // Pokemon database with IDs (first 1010 Pokemon as of 2024)
 const POKEMON_IDS = Array.from({length: 1010}, (_, i) => i + 1);
+// Cached string representations for the default ID list to avoid repeated toString() calls
+const POKEMON_ID_STRS = POKEMON_IDS.map((id) => id.toString());
 
 // Function to find similar Pokemon IDs
-function findSimilarIds(input) {
+// Accepts optional `ids` array for easier testing; defaults to full POKEMON_IDS
+function findSimilarIds(input, ids = POKEMON_IDS) {
+  const originalInput = input.toString();
   let processedInput = input;
   if (/^\d+$/.test(input)) {
     processedInput = parseInt(input, 10).toString();
@@ -12,22 +16,36 @@ function findSimilarIds(input) {
   const suggestions = [];
   
   if (/^\d+$/.test(inputStr)) {
-    for (let id of POKEMON_IDS) {
-      const idStr = id.toString();
-      if (idStr.includes(inputStr) && id.toString() !== inputStr) {
-        suggestions.push(id);
+    if (ids === POKEMON_IDS) {
+      // fast path for the default ID list using cached strings
+      for (let i = 0; i < POKEMON_IDS.length; i++) {
+        const id = POKEMON_IDS[i];
+        const idStr = POKEMON_ID_STRS[i];
+        if (idStr.includes(inputStr) && idStr !== inputStr) {
+          suggestions.push(id);
+        }
+        if (suggestions.length >= 6) break;
       }
-      if (suggestions.length >= 6) break;
+    } else {
+      // fallback for custom id lists (used in tests)
+      for (let id of ids) {
+        const idStr = id.toString();
+        if (idStr.includes(inputStr) && id.toString() !== inputStr) {
+          suggestions.push(id);
+        }
+        if (suggestions.length >= 6) break;
+      }
     }
     
-    if (suggestions.length === 0 && inputStr.length <= 3) {
-      const paddedInput = inputStr.padStart(3, '0');
+    // Use the original input (preserving leading zeros) for the padded fallback
+    if (suggestions.length === 0 && originalInput.length <= 3) {
+      const paddedInput = originalInput.padStart(3, '0');
       const paddedNum = parseInt(paddedInput);
       if (paddedNum >= 1 && paddedNum <= 1010 && paddedNum.toString() !== inputStr) {
         suggestions.push(paddedNum);
       }
       
-      const numInput = parseInt(inputStr);
+      const numInput = parseInt(originalInput);
       if (numInput >= 1 && numInput <= 1010 && numInput.toString() !== inputStr) {
         suggestions.push(numInput);
       }

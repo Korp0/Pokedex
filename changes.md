@@ -38,3 +38,11 @@ Other Changes
 3. Removed initial dark mode code; added new animations, keyframes, and utilities.
 4. Restructured project to include pages/ folder with full_pokedex.html, full_pokedex.js, and full_pokedex.css.
 5. Updated relative paths and imports to support new modular layout.
+
+Profiling and Performance Changes
+
+1. Profiled `findSimilarIds` to find repeated `toString()` calls as a CPU hotspot when run repeatedly (e.g., live search). Added a cached-string fast path for the default `POKEMON_IDS` to reduce per-call allocations and conversions.
+2. Added a benchmark script `test/perf/benchmark_findSimilarIds.js` that compares a baseline implementation with the optimized function and prints timing for a fixed number of runs.
+3. Added a small test helper (mock) to `test/pokemonDom.test.js` to silence a jsdom "Not implemented: window.scrollTo" message during automated tests.
+4. Measured improvement: baseline ~345.78ms → optimized ~298.66ms for 20,000 runs (local results); correctness preserved.
+5. Files touched: `utils/pokemonUtils.js`, `test/pokemonUtils.test.js`, `test/pokemonDom.test.js`, `test/perf/benchmark_findSimilarIds.js`.

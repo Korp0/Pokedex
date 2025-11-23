@@ -3,6 +3,8 @@ const { findSimilarIds, capitalizeName } = require("../utils/pokemonUtils");
 
 // Mock dataset for predictable tests (1–20 only for speed)
 const SMALL_IDS = Array.from({ length: 20 }, (_, i) => i + 1);
+// Tiny datasets used to trigger padded fallback branches in isolated tests
+const TINY_NO_1_10 = [2, 3, 4, 5, 6, 7];
 
 describe("findSimilarIds", () => {
   test("finds IDs containing input substring", () => {
@@ -25,7 +27,7 @@ describe("findSimilarIds", () => {
 
   test("leading zeros are ignored", () => {
     expect(findSimilarIds("07", SMALL_IDS)).toEqual(
-      expect.arrayContaining([17, 27])
+      expect.arrayContaining([17])
     );
   });
 });
