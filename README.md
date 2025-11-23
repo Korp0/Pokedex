@@ -4,7 +4,7 @@ A simple Pokédex web app built using **HTML, CSS, and JavaScript**.
 It fetches Pokémon data from the [PokéAPI](https://pokeapi.co/), an open and free RESTful API.  
 
 <!-- DevOps badges -->
-[![CI](https://github.com/Korp0/Pokedex/actions/workflows/ci.yml/badge.svg)](https://github.com/Korp0/Pokedex/actions/workflows/ci.yml)
+[![CI](https://github.com/Korp0/Pokedex/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Korp0/Pokedex/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/Korp0/Pokedex/branch/main/graph/badge.svg)](https://codecov.io/gh/Korp0/Pokedex)
 
 ## 🚀 Features
@@ -18,4 +18,4 @@ It fetches Pokémon data from the [PokéAPI](https://pokeapi.co/), an open and f
 - **HTML5**  
 - **CSS3**  
 - **JavaScript (Vanilla JS)**  
-- **[PokéAPI](https://pokeapi.co/)**  
+- **[PokéAPI](https://pokeapi.co/)
