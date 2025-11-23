@@ -46,3 +46,22 @@ Profiling and Performance Changes
 3. Added a small test helper (mock) to `test/pokemonDom.test.js` to silence a jsdom "Not implemented: window.scrollTo" message during automated tests.
 4. Measured improvement: baseline ~345.78ms → optimized ~298.66ms for 20,000 runs (local results); correctness preserved.
 5. Files touched: `utils/pokemonUtils.js`, `test/pokemonUtils.test.js`, `test/pokemonDom.test.js`, `test/perf/benchmark_findSimilarIds.js`.
+
+DevOps Integrations
+
+1. CI Workflow: added `.github/workflows/ci.yml` to run tests and collect coverage on push and PRs. The workflow uploads the `coverage` folder as an artifact and includes a Codecov upload step.
+2. Scheduled Benchmarks: added `.github/workflows/benchmarks.yml` to run `npm run perf:bench` weekly and upload `test/perf/perf_result.txt` as an artifact.
+3. Dependabot: added `.github/dependabot.yml` to open weekly dependency update PRs for `npm`.
+4. README badges: placeholders added for GitHub Actions CI and Codecov; once Codecov is enabled for the repo the coverage badge will show real data.
+
+Files added/changed for DevOps:
+- `.github/workflows/ci.yml`
+- `.github/workflows/benchmarks.yml`
+- `.github/dependabot.yml`
+- `test/perf/perf_result.txt` (written when benchmark runs)
+- `README.md` (badges)
+
+How to enable Codecov (if you want automated coverage reporting):
+1. Go to https://codecov.io and sign in with GitHub.
+2. Add the `Korp0/Pokedex` repository in Codecov.
+3. The CI step already uploads `coverage/lcov.info` using the Codecov action. For private repos you may need to add a Codecov token to the repository secrets as `CODECOV_TOKEN`.

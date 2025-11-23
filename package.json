@@ -4,6 +4,8 @@
     "jest-environment-jsdom": "^30.2.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "npx jest --coverage",
+    "coverage": "npx jest --coverage",
+    "perf:bench": "node test/perf/benchmark_findSimilarIds.js"
   }
 }

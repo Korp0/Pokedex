@@ -60,5 +60,15 @@ bench(baselineFindSimilarIds, 'baselineFindSimilarIds');
 bench(findSimilarIds, 'optimized findSimilarIds');
 
 // Quick correctness check
-console.log('sample baseline:', baselineFindSimilarIds('010'));
-console.log('sample optimized:', findSimilarIds('010'));
+const sampleBaseline = baselineFindSimilarIds('010');
+const sampleOptimized = findSimilarIds('010');
+console.log('sample baseline:', sampleBaseline);
+console.log('sample optimized:', sampleOptimized);
+
+// Write results to file for CI artifacts
+const fs = require('fs');
+const out = [];
+out.push(`baseline sample: ${JSON.stringify(sampleBaseline)}`);
+out.push(`optimized sample: ${JSON.stringify(sampleOptimized)}`);
+out.push('\nRun completed.');
+fs.writeFileSync('test/perf/perf_result.txt', out.join('\n'));
